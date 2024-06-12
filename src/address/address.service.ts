@@ -7,10 +7,21 @@ import { addressTable } from "../drizzle/schema";
 export const listaddresses= async (limit?: number): Promise<addressSelect[] | null> => {
     if (limit) {
         return await db.query.addressTable.findMany({
-            limit: limit
+            limit: limit,
+            with: {
+               user:true,
+               city:true,
+               orders:true
+            }
         });
     }
-    return await db.query.addressTable.findMany();
+    return await db.query.addressTable.findMany({
+        with: {
+            user:true,
+            city:true,
+            orders:true
+         }
+    });
 }
 
 

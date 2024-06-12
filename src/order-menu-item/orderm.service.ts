@@ -7,10 +7,19 @@ import { eq } from "drizzle-orm";
 export const ordermenuService = async (limit?: number): Promise<omiSelect[] | null> => {
     if (limit) {
         return await db.query.ordermenuitemTable.findMany({
-            limit: limit
+            limit: limit,
+            with: {
+                order: true,
+                menu_item: true
+            }
         });
     }
-    return await db.query.ordermenuitemTable.findMany();
+    return await db.query.ordermenuitemTable.findMany({
+        with: {
+            order: true,
+            menu_item: true
+        }
+    });
 }
 
 export const createservice = async (item: omiInsert) => {

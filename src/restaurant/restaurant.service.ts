@@ -7,10 +7,23 @@ import { eq } from "drizzle-orm";
 export const restService = async (limit?: number): Promise<restSelect[] | null> => {
     if (limit) {
         return await db.query.restaurantTable.findMany({
-            limit: limit
+            limit: limit,
+            with: { 
+              menu_item: true,
+              orders: true,
+              restaurant_owner: true,
+              city: true
+            }
         });
     }
-    return await db.query.restaurantTable.findMany();
+    return await db.query.restaurantTable.findMany({
+        with: { 
+            menu_item: true,
+            orders: true,
+            restaurant_owner: true,
+            city: true
+          }
+    });
 }
 
 export const getrestService = async (id: number): Promise<restInsert | undefined> => {

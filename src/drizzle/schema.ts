@@ -11,14 +11,10 @@ export const usersTable = pgTable('users', {
     email: varchar('email', { length: 255 }).notNull(),
     email_verified: boolean('email_verified').notNull(),
     confirmation_code: text('comfirmation_code'),
-    password: varchar('password', { length: 255 }).notNull(),
-    created_at: timestamp('created_at').defaultNow(),
-    updated_at: timestamp('updated_at').notNull().defaultNow(),
     address: varchar('address', { length: 255 }).notNull(),
     Comment: text('comment').notNull(),
-    driver: varchar('driver', { length: 255 }).notNull(),
-    orders: varchar('orders', { length: 255 }).notNull(),
-    restaurant_owner: varchar(' restaurant_owner', { length: 255 }).notNull(),
+    created_at: timestamp('created_at').defaultNow(),
+    updated_at: timestamp('updated_at').notNull().defaultNow(),
 })
 
 
@@ -33,9 +29,6 @@ export const addressTable = pgTable('address', {
     city_id: integer('city_id').notNull().references(() => cityTable.id, { onDelete: 'cascade' }),
     created_at:timestamp('created_at').notNull().defaultNow(),
     updated_at: timestamp('updated_at').notNull().defaultNow(),
-    city: varchar('city', { length: 255 }).notNull(),
-    users: varchar('users', { length: 255 }).notNull(),
-    orders: varchar('orders', { length: 255 }).notNull(),
 
 })
 
@@ -51,8 +44,6 @@ export const driversTable = pgTable('drivers', {
     delivering: boolean('delivering').notNull(),
     created_at:timestamp('created_at').notNull().defaultNow(),
     updated_at: timestamp('updated_at').notNull().defaultNow(),
-    users: varchar('users', { length: 255 }).notNull(),
-    orders: varchar('orders', { length: 255 }).notNull(),
 
 
 })
@@ -74,7 +65,6 @@ export const stateTable=pgTable('state',{
 id:serial('id').primaryKey(),
 name:varchar('name',{length:255}).notNull(),
 code:varchar('code',{length:255}).notNull(),
-city:varchar('city',{length:255}).notNull(),
 })
 
 
@@ -83,10 +73,6 @@ export const cityTable = pgTable('city', {
     id:serial('id').primaryKey().notNull(),
     name: varchar('name', { length: 255 }).notNull(),
     state_id: integer('state_id').notNull().references(() => stateTable.id, { onDelete: 'cascade' }),   
-    address: varchar('address', { length: 255 }).notNull(),
-    state: varchar('state', { length: 255 }).notNull(),
-    reataurant: varchar('restaurant', { length: 255 }).notNull(),
-
 })
 
 
@@ -99,10 +85,6 @@ zip_code:varchar('zip_code',{length:255}).notNull(),
 city_id:integer('city_id').notNull().references(()=>cityTable.id),
 created_at:timestamp('created_at').notNull().defaultNow(),
 updated_at:timestamp('updated_at').notNull().defaultNow(),
-menu_item:varchar('menu_item',{length:255}).notNull(),
-orders:varchar('orders',{length:255}).notNull(),   
-city:varchar('city',{length:255}).notNull(),
-restaurant_owner:varchar('restaurant_owner',{length:255}).notNull(),
 })
 
 
@@ -111,8 +93,6 @@ export const restaurantownerTable=pgTable('restaurant_owner',{
 id:serial('id').primaryKey(),
 restaurant_id:integer('restaurant_id').notNull().references(()=>restaurantTable.id,{onDelete:'cascade'}),
 owner_id:integer('owner_id').notNull().references(()=>usersTable.id,{onDelete:'cascade'}),
-users:varchar('users',{length:255}).notNull(),
-restaurant:varchar('restaurant',{length:255}).notNull(),
 })
 
 
@@ -120,7 +100,7 @@ restaurant:varchar('restaurant',{length:255}).notNull(),
 export const ordersTable = pgTable('orders', {
     id: serial('id').primaryKey().notNull(),
     restaurantId: integer('restaurant_id').notNull().references(() => restaurantTable.id, { onDelete: 'cascade' }),
-    estimatedDeliveryTime: timestamp('estimated_delivery_time').notNull(),
+    estimatedDeliveryTime: timestamp('estimated_delivery_time'),
     actualDeliveryTime: timestamp('actual_delivery_time'),
     deliveryAddressId: integer('delivery_address_id').notNull().references(() => addressTable.id,{onDelete:'cascade'}),
     userId: integer('user_id').notNull().references(() => usersTable.id, { onDelete: 'cascade' }),
@@ -131,9 +111,6 @@ export const ordersTable = pgTable('orders', {
     comment: varchar('comment', { length: 255 }),
     createdAt: timestamp('created_at').notNull().defaultNow(),
     updatedAt: timestamp('updated_at').notNull().defaultNow(),
-    comments: varchar('comments', { length: 255 }),
-    orderMenuItemId: integer('order_menu_item_id').notNull(),
-    orderStatusId: integer('order_status_id').notNull(),
 })
 
 
@@ -149,9 +126,6 @@ export const menuitemTable = pgTable('menu_item', {
     active: boolean('active').notNull(),
     created_at: timestamp('created_at').notNull().defaultNow(),
     updated_at:timestamp('updated_at').notNull().defaultNow(),
-    category: varchar('category', { length: 255 }).notNull(),
-    restaurant: varchar('restaurant', { length: 255 }).notNull(),
-    order_menu_item: varchar('order_menu_item', { length: 255 }).notNull(),
 
 })
 
@@ -160,7 +134,6 @@ export const menuitemTable = pgTable('menu_item', {
 export const category = pgTable('category', {
     id:serial('id').primaryKey(),
     name: varchar('name', { length: 255 }).notNull(),
-    menu_item: varchar('menu_item', { length: 255 }).notNull()
 });
 
 
@@ -173,8 +146,6 @@ export const ordermenuitemTable = pgTable('order_menu_item', {
     item_price: decimal('item_price',{precision:10,scale:2}).notNull(),
     price: decimal('price').notNull(),
     comment: varchar('comment'),
-    menu_item: varchar('menu_item', { length: 255 }).notNull(),
-    orders: varchar('orders', { length: 255 }).notNull(),
 })
 
 
@@ -184,15 +155,12 @@ export const orderstatusTable = pgTable('order_status', {
     order_id: integer('order_id').notNull().references(() => ordersTable.id, { onDelete: 'cascade' }),
     status_catalog_id: integer('status_catalog_id').notNull().references(() => statuscatalogTable.id, { onDelete: 'cascade' }),
     created_at: timestamp('created_at').notNull().defaultNow(),
-    orders: varchar('orders', { length: 255 }).notNull(),
-    status_catalog: varchar('status_catalog', { length: 255 }).notNull(),
 })
 
 //status catalog table
 export const statuscatalogTable = pgTable('status_catalog', {
     id: serial('id').primaryKey(),
     name: varchar('name', { length: 255 }).notNull(),
-    order_status: varchar('order_status', { length: 255 }).notNull(),
 })
 
 
@@ -355,7 +323,36 @@ export const orderstatusTableRelation=relations(orderstatusTable,({one,many})=>(
 export const statuscatalogTableRelation=relations(statuscatalogTable,({many})=>({
     order_status:many(orderstatusTable),
 }))
+import { pgEnum } from "drizzle-orm/pg-core";
+export const roleEnum = pgEnum("role", ["admin", "user","driver","restaurant-owner"])
 
+export const AuthOnUsersTable = pgTable("auth_on_users", {
+    id: serial("id").primaryKey(),
+    userId: integer("user_id").notNull().references(() => usersTable.id, { onDelete: "cascade" }),
+    password: varchar("password", { length: 100 }),
+    username: varchar("username", { length: 100 }),
+    role: roleEnum("role").default("user")
+});
+
+export const AuthOnUsersRelations = relations(AuthOnUsersTable, ({ one }) => ({
+    user: one(usersTable, {
+        fields: [AuthOnUsersTable.userId],
+        references: [usersTable.id]
+    }),
+    driver: one(driversTable, {
+        fields: [AuthOnUsersTable.userId],
+        references: [driversTable.id],
+    }),
+    restaurantOwner: one(restaurantownerTable, {
+        fields: [AuthOnUsersTable.id],
+        references: [restaurantownerTable.id],
+    }),
+
+}));
+
+
+export type TIAuthOnUser = typeof AuthOnUsersTable.$inferInsert;
+export type TSAuthOnUser = typeof AuthOnUsersTable.$inferSelect;
 export type UserInsert=typeof usersTable.$inferInsert
 export type UserSelect=typeof usersTable.$inferSelect
 export type stateInsert=typeof stateTable.$inferInsert

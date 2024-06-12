@@ -8,10 +8,21 @@ import db from "../drizzle/db";
 export const menuService = async (limit?: number): Promise<mitemSelect[] | null> => {
     if (limit) {
         return await db.query.menuitemTable.findMany({
-            limit: limit
+            limit: limit,
+            with: {
+                restaurant: true,
+                category: true,
+                order_menu_item: true
+            }
         });
     }
-    return await db.query.menuitemTable.findMany();
+    return await db.query.menuitemTable.findMany({
+        with: {
+            restaurant: true,
+            category: true,
+            order_menu_item: true
+        }
+    });
 }
 
 export const getmenuService = async (id: number): Promise<mitemInsert | undefined> => {

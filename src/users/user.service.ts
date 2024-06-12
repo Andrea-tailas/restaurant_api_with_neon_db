@@ -1,24 +1,47 @@
 import db from "../drizzle/db"
 import { usersTable } from "../drizzle/schema"
 import { UserInsert,UserSelect } from "../drizzle/schema"
-import { eq } from "drizzle-orm";
+import {  eq } from "drizzle-orm";
 
 
 export const usersService = async (limit?: number): Promise<UserSelect[] | null> => {
     if (limit) {
         return await db.query.usersTable.findMany({
-            limit: limit
+            limit: limit,
+            with: {
+                address: true,
+                comment: true,
+                driver: true,
+                orders: true,
+                restaurant_owner: true
+            }
         });
     }
-    return await db.query.usersTable.findMany();
+    return await db.query.usersTable.findMany({
+    with: {
+        address: true,
+        comment: true,
+        driver: true,
+        orders: true,
+        restaurant_owner: true
+    }
+    });
 }
-
-export const getUserService = async (id: number): Promise<UserInsert | undefined> => {
+export const getUserService = async (id: number) => {
     return await db.query.usersTable.findFirst({
-        where: eq(usersTable.id, id)
+        where: eq(usersTable.id, id),
+      columns: {
+        id: true,
+        name: true,
+        email: true,
+        address: true,
+        Comment: true,
+        driver: true,
+        orders: true,
+        restaurant_owner: true
+      } 
     })
 }
-
 export const createUserService = async (user: UserInsert) => {
     await db.insert(usersTable).values(user)
     return "User created successfully";

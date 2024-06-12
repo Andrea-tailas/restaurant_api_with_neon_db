@@ -6,10 +6,19 @@ import { eq } from "drizzle-orm";
 export const commentsService = async (limit?: number): Promise<commentSelect[] | null> => {
     if (limit) {
         return await db.query.commentsTable.findMany({
-            limit: limit
+            limit: limit,
+            with: {
+                order: true,
+                user: true
+            }
         });
     }
-    return await db.query.commentsTable.findMany();
+    return await db.query.commentsTable.findMany({
+        with: {
+            order: true,
+            user: true
+        }
+    });
 }
 
 export const getcommentService = async (id: number): Promise<commentInsert | undefined> => {

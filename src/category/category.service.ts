@@ -7,10 +7,17 @@ import { category } from "../drizzle/schema";
 export const categoriesLister = async (limit?: number): Promise<categorySelect[] | null> => {
     if (limit) {
         return await db.query.category.findMany({
-            limit: limit
+            limit: limit,
+            with: {
+                menu_item: true
+            }
         });
     }
-    return await db.query.category.findMany();
+    return await db.query.category.findMany({
+        with: {
+            menu_item: true
+        }
+    });
 }
 
 //create record

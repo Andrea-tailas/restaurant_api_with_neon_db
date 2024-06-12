@@ -8,10 +8,17 @@ import { statuscatalogTable } from "../drizzle/schema";
 export const statcatLister = async (limit?: number): Promise<statcatSelect[] | null> => {
     if (limit) {
         return await db.query.statuscatalogTable.findMany({
-            limit: limit
+            limit: limit,
+            with: {
+                order_status: true
+            }
         });
     }
-    return await db.query.statuscatalogTable.findMany();
+    return await db.query.statuscatalogTable.findMany({
+        with: {
+            order_status: true
+        }
+    });
 }
 
 //create record

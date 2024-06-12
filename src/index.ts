@@ -15,6 +15,7 @@ import {restownerRouter} from "./restaurant-owner/restowner.router"
 import { orderRouter } from "./orders/order.router";
 import { menuRouter } from "./menu-item/menu.router";
 import { ordermenuRouter } from "./order-menu-item/orderm.router";
+import {authRouter} from "./auth/auth.router"
 const app = new Hono()
 
 
@@ -39,6 +40,7 @@ app.route('/',restownerRouter)
 app.route('/',orderRouter)
 app.route('/',menuRouter)
 app.route('/',ordermenuRouter)
+app.route('auth/',authRouter)
 
 console.log(`Server is running on port ${process.env.PORT}`)
 

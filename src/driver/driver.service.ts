@@ -7,10 +7,19 @@ import { driversTable } from "../drizzle/schema";
 export const driversLister = async (limit?: number): Promise<driverSelect[] | null> => {
     if (limit) {
         return await db.query.driversTable.findMany({
-            limit: limit
+            limit: limit,
+            with: {
+                user: true,
+                orders: true
+            }
         });
     }
-    return await db.query.driversTable.findMany();
+    return await db.query.driversTable.findMany({
+        with: {
+            user: true,
+            orders: true
+        }
+    });
 }
 
 //create record

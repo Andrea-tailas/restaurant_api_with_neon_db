@@ -6,10 +6,17 @@ import { eq } from "drizzle-orm";
 export const statesServiceLister = async (limit?: number): Promise<stateSelect[] | null> => {
     if (limit) {
         return await db.query.stateTable.findMany({
-            limit: limit
+            limit: limit,
+            with: {
+                city: true
+            }
         });
     }
-    return await db.query.stateTable.findMany();
+    return await db.query.stateTable.findMany({
+        with: {
+            city: true
+        }
+    });
 }
 
 //create record

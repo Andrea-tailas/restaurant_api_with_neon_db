@@ -7,10 +7,19 @@ import { eq } from "drizzle-orm";
 export const restownerService = async (limit?: number): Promise<restownerSelect[] | null> => {
     if (limit) {
         return await db.query.restaurantownerTable.findMany({
-            limit: limit
+            limit: limit,
+            with: { 
+                restaurant: true,
+                user: true
+            }
         });
     }
-    return await db.query.restaurantownerTable.findMany();
+    return await db.query.restaurantownerTable.findMany({
+        with: { 
+            restaurant: true,
+            user: true
+        }
+    });
 }
 
 export const getrestownerService = async (id: number): Promise<restownerInsert | undefined> => {

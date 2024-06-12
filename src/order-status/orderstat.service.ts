@@ -8,10 +8,19 @@ import { eq } from "drizzle-orm";
 export const orderstatLister = async (limit?: number): Promise<orderSSelect[] | null> => {
     if (limit) {
         return await db.query.orderstatusTable.findMany({
-            limit: limit
+            limit: limit,
+            with: {
+                order: true,
+                status_catalog: true
+            }
         });
     }
-    return await db.query.orderstatusTable.findMany();
+    return await db.query.orderstatusTable.findMany({
+        with: {
+            order: true,
+            status_catalog: true
+        }
+    });
 }
 
 //create record

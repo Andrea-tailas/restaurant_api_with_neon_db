@@ -1,5 +1,5 @@
 import { Context } from "hono";
-import { usersService, getUserService, createUserService, updateUserService, deleteUserService } from "./user.service";
+import { usersService, getUserService, createUserService, updateUserService, deleteUserService} from "./user.service";
 
 export const listUsers = async (c: Context) => {
     try {
@@ -27,6 +27,7 @@ export const getUser = async (c: Context) => {
     }
     return c.json(user, 200);
 }
+
 export const createUser = async (c: Context) => {
     try {
         const user = await c.req.json();

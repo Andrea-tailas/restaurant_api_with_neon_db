@@ -6,10 +6,21 @@ import { cityInsert,citySelect } from "../drizzle/schema"
 export const getCities= async (limit?: number): Promise<citySelect[] | null> => {
     if (limit) {
         return await db.query.cityTable.findMany({
-            limit: limit
+            limit: limit,
+            with: {
+                state: true,
+                address: true,
+                restaurant: true
+            }
         });
     }
-    return await db.query.cityTable.findMany();
+    return await db.query.cityTable.findMany({
+        with: {
+            state: true,
+            address: true,
+            restaurant: true
+        }
+    });
 }
 
 //create a city
