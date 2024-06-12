@@ -5,7 +5,7 @@ import { zValidator } from "@hono/zod-validator";
 import { adminRoleAuth } from "../middleware/bearAuth";
 import { ordersValidator } from "../validators";
 
-orderRouter.get("/orders", listorder);
+orderRouter.get("/orders",adminRoleAuth, listorder);
 orderRouter.get("/order/:id", getorder)
 orderRouter.post("/order",zValidator('json',ordersValidator,(result,c)=>{
     if (!result.success){

@@ -1,4 +1,4 @@
-import { AuthOnUsersTable,TIAuthOnUser,TSAuthOnUser,TIAuthOndriver,TSAuthOndriver,TIAuthOnrestowner,TSAuthOnrestowner } from "../drizzle/schema";
+import { AuthOnUsersTable,TIAuthOnUser,TSAuthOnUser } from "../drizzle/schema";
 import db from "../drizzle/db";
 import {sql} from "drizzle-orm"
 

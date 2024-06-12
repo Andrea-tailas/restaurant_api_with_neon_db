@@ -6,7 +6,7 @@ import { adminRoleAuth } from "../middleware/bearAuth";
 
 export const statcatRouter = new Hono();
      
-statcatRouter.get("/statuscatalogues", liststatcat);    
+statcatRouter.get("/statuscatalogues",adminRoleAuth, liststatcat);    
 statcatRouter.get("/statuscatalogue/:id",getStatcatid )
 statcatRouter.post("/statuscatalogue",zValidator('json',statusCatalogValidator,(result,c)=>{
     if (!result.success){

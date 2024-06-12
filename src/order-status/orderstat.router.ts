@@ -9,7 +9,7 @@ import { Hono } from "hono";
 export const orderstatRouter = new Hono();
 
 //get all orderstat     
-orderstatRouter.get("/orderstat", listorderstat);
+orderstatRouter.get("/orderstat",adminRoleAuth, listorderstat);
 //get a single orderstat  
 orderstatRouter.get("/orderstat/:id",getorderstatid )
 // create a orderstat 

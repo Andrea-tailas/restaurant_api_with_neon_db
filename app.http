@@ -4,7 +4,7 @@ Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJrZXZpbiIsInJvbGUiO
 
 ###
 GET http://localhost:8000/api/user/2
-Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJrZXZpbiIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTcxODE3OTUzNn0.XhEVzWF7D8J3dHhSFDs_qVi1v16MKfxtP-Kn_qsRBJE
+Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJrZXZpbiIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTcxODE4ODcwMX0.uX0JLIsf50vMNknjyvPiCKKzUznwKbkOvuJ5RY62Uhc
 ###
 
 GET http://localhost:8000/api/user?limit=2
@@ -16,7 +16,7 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJrZXZpbiIsInJvbGUi
 Content-Type: application/json
 
   {
-    "id": 9,
+    "id": 10,
     "name": "jovial",
     "contact_phone": "9560667",
     "phone_verified": true,
@@ -30,24 +30,25 @@ Content-Type: application/json
   
 ###
 
-PUT http://localhost:8000/api/user/7
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJUaGVvIiwicm9sZSI6InVzZXIiLCJleHAiOjE3MTgxMDQ5MDl9.vn9tJwkVseAxqHpVmn5e6IYtxMdJzfCfqfSzCxkOqjI
+PUT http://localhost:8000/api/user/10
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJrZXZpbiIsInJvbGUiOiJhZG1pbiIsImV4cCI6MzYwMDAwMTcxODExMjI5MX0.6lP9PwjeNI62F5jbhXggkoYdA_IPt6WOihDpxRlFScc
 
 {
-    "name": "Theo"
+    "name": "Hamisi"
 }
 ###
 DELETE http://localhost:8000/api/user/1
-Authorization:
+Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJrZXZpbiIsInJvbGUiOiJhZG1pbiIsImV4cCI6MzYwMDAwMTcxODExMjI5MX0.6lP9PwjeNI62F5jbhXggkoYdA_IPt6WOihDpxRlFScc
 ###
 POST http://localhost:8000/auth/register
 content-Type:application/json
   
   {
-    "userId":2,
-    "username": "Theo",
+    "id":"2",
+    "userId":3,
+    "username": "kevin",
     "password": "pass",
-    "role": "user"
+    "role": "admin"
   } 
 ###
 POST http://localhost:8000/auth/login
@@ -76,7 +77,7 @@ POST http://localhost:8000/restaurant
 Content-Type: application/json
 
   {
-    "id": 4,
+    "id": 5,
     "name": "KFC",
     "street_address": "240",
     "zip_code": "241",
@@ -84,7 +85,7 @@ Content-Type: application/json
   }
 
 ###
-PUT http://localhost:8000/restaurant/8
+PUT http://localhost:8000/restaurant/5
 Content-Type: application/json
 
 {
@@ -99,6 +100,7 @@ DELETE http://localhost:8000/restaurant/12
 ###
 //ADDRESS TABLE **************** 3
 GET http://localhost:8000/addresses
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJrZXZpbiIsInJvbGUiOiJhZG1pbiIsImV4cCI6MzYwMDAwMTcxODExMjI5MX0.6lP9PwjeNI62F5jbhXggkoYdA_IPt6WOihDpxRlFScc
 
 ###
 GET http://localhost:8000/address/5
@@ -116,9 +118,10 @@ Content-Type: application/json
   {
     "id": 8,
     "street_address_1": "240",
+    "street_address_2": "241",
     "zip_code": "241",
     "delivery_instructions":"deliver on time",
-    "user_id":"2",
+    "user_id":2,
     "city_id": 1
   }
   
@@ -128,7 +131,7 @@ PUT http://localhost:8000/address/8
 Content-Type: application/json
   
   {
-      "city_id": "4"
+      "city_id": 1
   }
 
 ###
@@ -177,7 +180,7 @@ DELETE http://localhost:8000/category/8
 GET http://localhost:8000/cities
 
 ###
-GET http://localhost:8000/city/5
+GET http://localhost:8000/city/2
 
 ###
 GET http://localhost:8000/city?limit=3
@@ -190,9 +193,9 @@ POST http://localhost:8000/city
 Content-Type: application/json
 
   {
-    "id": 1,
+    "id": 4,
     "name": "Nairobi",
-    "state_id":"2"
+    "state_id":2
   }
 
 
@@ -230,9 +233,9 @@ POST http://localhost:8000/comment
 Content-Type: application/json
 
   {
-    "id": 8,
-    "order_id":"2",
-    "user_id": 1,
+    "id": 2,
+    "order_id":8,
+    "user_id": 2,
     "comment_text": "The food was great"
   }
 
@@ -255,15 +258,15 @@ DELETE http://localhost:8000/comment/12
 ###
 //DRIVER TABLE **************** 7
 GET http://localhost:8000/drivers
-
+Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJraWFyYSIsInJvbGUiOiJkcml2ZXIiLCJleHAiOjE3MTgxODM2ODB9.2bWH-iAkHzt5DYfHqvSYOQof_dZ9deXjXn3KjtD5Wuk
 
 ###
 GET http://localhost:8000/driver/5
 
 
 ###
-GET http://localhost:8000/driver?limit=7
-
+GET http://localhost:8000/drivers?limit=1
+Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJraWFyYSIsInJvbGUiOiJkcml2ZXIiLCJleHAiOjE3MTgxODM2ODB9.2bWH-iAkHzt5DYfHqvSYOQof_dZ9deXjXn3KjtD5Wuk
 
 ###
 GET http://localhost:8000/driver?limit=7&offset=2
@@ -301,10 +304,25 @@ Content-Type: application/json
 ###
 DELETE http://localhost:8000/driver/17
 
-
 ###
-GET http://localhost:8000/driver
-
+POST http://localhost:8000/auth/register
+content-Type:application/json
+  
+  {
+    "id":"3",
+    "userId":1,
+    "username": "kiara",
+    "password": "pass",
+    "role": "driver"
+  } 
+###
+POST http://localhost:8000/auth/login
+Content-Type:application/json
+  
+  {
+    "username": "kiara",
+    "password": "pass"
+  }
 ###
 //STATE   TABLE **************** 8
 GET http://localhost:8000/states
@@ -346,30 +364,30 @@ DELETE http://localhost:8000/state/40
 
 ###
 //MENU_ITEM TABLE **************** 9
-GET http://localhost:8000/menu-items
+GET http://localhost:8000/menuitems
 
 
 ###
-GET http://localhost:8000/menu-item/5
+GET http://localhost:8000/menuitem/5
 
 
 ###
-GET http://localhost:8000/menu-item?limit=7
+GET http://localhost:8000/menuitems?limit=7
 
 
 ###
-GET http://localhost:8000/menu-item?limit=7&offset=2
+GET http://localhost:8000/menuitems?limit=7&offset=2
 
 
 ###
-POST http://localhost:8000/menu-item
+POST http://localhost:8000/menuitem
 Content-Type: application/json
 
   {
     "id": 8,
     "name": "Chips",
     "restaurant_id": 1,
-    "category_id":"2",
+    "category_id":2,
     "description":"hamburger",
     "ingredients":"meat and bread",
     "price": 200,
@@ -378,7 +396,7 @@ Content-Type: application/json
 
 
 ###
-PUT http://localhost:8000/menu-item/8
+PUT http://localhost:8000/menuitem/8
 Content-Type: application/json
 
 {
@@ -389,7 +407,7 @@ Content-Type: application/json
 
 
 ###
-DELETE http://localhost:8000/menu-item/90
+DELETE http://localhost:8000/menuitem/90
 
 
 
@@ -403,11 +421,11 @@ GET http://localhost:8000/order/19
 
 
 ###
-GET http://localhost:8000/order?limit=7
+GET http://localhost:8000/orders?limit=7
 
 
 ###
-GET http://localhost:8000/order?limit=7&offset=2
+GET http://localhost:8000/orders?limit=7&offset=2
 
 
 ###
@@ -457,7 +475,7 @@ POST http://localhost:8000/statuscatalogue
 Content-Type: application/json
 
 {
-  "id":"2",
+  "id":4,
   "name":"processing"
 }
 
@@ -469,10 +487,11 @@ Content-Type: application/json
   "name":"kenny"
 }
 ###
-DELETE http://localhost:8000/statuscatalogue/3
+DELETE http://localhost:8000/statuscatalogue/4
 
 ###
 GET http://localhost:8000/restaurantowners
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJtdXNpYWxhIiwicm9sZSI6InJlc3RhdXJhbnQtb3duZXIiLCJleHAiOjE3MTgxODM4MTl9.FYj7p7ZG0Du-LDCoYOHfsUlIv0MwNzhNfzEIvpqZTXY
 ###
 GET http://localhost:8000/restaurantowner/2
 ###
@@ -484,9 +503,9 @@ POST http://localhost:8000/restaurantowner
 Content-Type: application/json
 
 {
-    "id": "3",
-    "restaurant_id":"3" ,
-    "owner_id":"2"
+    "id": 3,
+    "restaurant_id":4 ,
+    "owner_id":2
 }
 
 ###
@@ -498,25 +517,46 @@ Content-Type: application/json
 }
 ###
 DELETE http://localhost:8000/restaurantowner/3
+
+###
+POST http://localhost:8000/auth/register
+content-Type:application/json
+  
+  {
+    "id":"4",
+    "userId":1,
+    "username": "musiala",
+    "password": "pass",
+    "role": "restaurant-owner"
+  } 
+###
+POST http://localhost:8000/auth/login
+Content-Type:application/json
+  
+  {
+    "username": "musiala",
+    "password": "pass"
+  }
+###
 ###
 GET http://localhost:8000/ordermenuitems
 ###
 GET http://localhost:8000/ordermenuitem/2
 ###
-GET http://localhost:8000/ordermenuitem?limit=7
+GET http://localhost:8000/ordermenuitems?limit=7
 ###
-GET http://localhost:8000/ordermenuitem?limit=7&offset=2
+GET http://localhost:8000/ordermenuitems?limit=7&offset=2
 ###
 POST http://localhost:8000/ordermenuitem
 Content-Type: application/json
 
 {
-    "id": "1",
-    "order_id": "2",
-    "menu_item_id": "2",
-    "quantity": "4",
-    "item_price": "200",
-    "price": "200",
+    "id": 2,
+    "order_id": 8,
+    "menu_item_id": 1,
+    "quantity": 4,
+    "item_price": 200,
+    "price": 200,
     "comment": "no discounts"
 }
 
@@ -528,5 +568,5 @@ Content-Type: application/json
  "comment": "no discounts"
 }
 ###
-DELETE http://localhost:8000/ordermenuitem/3
+DELETE http://localhost:8000/ordermenuitem/2
   ###

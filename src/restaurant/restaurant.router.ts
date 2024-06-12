@@ -5,7 +5,7 @@ import { listrest, getrest, createrest, updaterest, deleterest } from "./restaur
 import { adminRoleAuth } from "../middleware/bearAuth";
 export const restRouter = new Hono();
 
-restRouter.get("/restaurants", listrest);
+restRouter.get("/restaurants",adminRoleAuth, listrest);
 restRouter.get("/restaurant/:id", getrest)
 restRouter.post("/restaurant",zValidator('json',restaurantValidator,(result,c)=>{
     if (!result.success){

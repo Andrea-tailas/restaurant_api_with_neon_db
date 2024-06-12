@@ -35,13 +35,12 @@ export const getUserService = async (id: number) => {
         name: true,
         email: true,
         address: true,
-        Comment: true,
-        driver: true,
-        orders: true,
-        restaurant_owner: true
+        Comment: true
       } 
     })
 }
+
+
 export const createUserService = async (user: UserInsert) => {
     await db.insert(usersTable).values(user)
     return "User created successfully";

@@ -6,12 +6,12 @@ import { adminRoleAuth } from "../middleware/bearAuth";
 
 export const menuRouter = new Hono();
 
-menuRouter.get("/menu-items/", listmenu)
-menuRouter.get("/menu-item/:id", getmenu)
-menuRouter.post("/menu-item",zValidator('json',menuItemValidator,(result,c)=>{
+menuRouter.get("/menuitems",adminRoleAuth, listmenu)
+menuRouter.get("/menuitem/:id", getmenu)
+menuRouter.post("/menuitem",zValidator('json',menuItemValidator,(result,c)=>{
     if (!result.success){
         return c.json(result.error,400)
     }
 }), createmenu)
-menuRouter.put("/menu-item/:id", updatemenu)
-menuRouter.delete("/menu-item/:id", deletemenu)
+menuRouter.put("/menuitem/:id", updatemenu)
+menuRouter.delete("/menuitem/:id", deletemenu)

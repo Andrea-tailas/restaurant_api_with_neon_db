@@ -6,7 +6,7 @@ import { orderMenuItemValidator } from "../validators";
 import { adminRoleAuth } from "../middleware/bearAuth";
 
 
-ordermenuRouter.get("/ordermenuitems", listordermenu);
+ordermenuRouter.get("/ordermenuitems",adminRoleAuth, listordermenu);
 ordermenuRouter.get("/ordermenuitem/:id", getorder)
 ordermenuRouter.post("/ordermenuitem",zValidator('json',orderMenuItemValidator,(result,c)=>{
     if (!result.success){

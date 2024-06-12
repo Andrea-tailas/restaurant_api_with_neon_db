@@ -20,7 +20,6 @@ export const listUsers = async (c: Context) => {
 export const getUser = async (c: Context) => {
     const id = parseInt(c.req.param("id"));
     if (isNaN(id)) return c.text("Invalid ID", 400);
-
     const user = await getUserService(id);
     if (user == undefined) {
         return c.text("User not found", 404);

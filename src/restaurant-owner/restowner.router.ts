@@ -5,7 +5,7 @@ import { listrestowner, getrestowner, createrestowner, updaterestowner, deletere
 import { adminRoleAuth } from "../middleware/bearAuth";
 export const restownerRouter = new Hono();
 
-restownerRouter.get("/restaurantowners", listrestowner);
+restownerRouter.get("/restaurantowners",adminRoleAuth, listrestowner);
 restownerRouter.get("/restaurantowner/:id", getrestowner)
 restownerRouter.post("/restaurantowner",zValidator('json',restaurantOwnerValidator,(result,c)=>{
     if (!result.success){
