@@ -164,6 +164,19 @@ export const statuscatalogTable = pgTable('status_catalog', {
 })
 
 
+export type addressTable2 = {
+    id: number,
+    street_address_1: string,
+    street_address_2: string,
+    zip_code: string,
+    delivery_instructions: string,
+    // user_id: integer('user_id').notNull().references(() => usersTable.id, { onDelete: 'cascade' }),
+    // city_id: integer('city_id').notNull().references(() => cityTable.id, { onDelete: 'cascade' }),
+    created_at: Date,
+    updated_at:Date,
+
+}
+
 //RELATIONS
 //usertable relations
 export const userTableRelation=relations(usersTable,({many})=>({
@@ -381,3 +394,4 @@ export type mitemSelect =typeof menuitemTable.$inferSelect
 export type mitemInsert=typeof menuitemTable.$inferInsert
 export type commentInsert=typeof commentsTable.$inferInsert
 export type commentSelect=typeof commentsTable.$inferSelect
+

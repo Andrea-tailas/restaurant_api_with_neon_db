@@ -1,7 +1,8 @@
 import db from "../drizzle/db"
 import { usersTable } from "../drizzle/schema"
 import { UserInsert,UserSelect } from "../drizzle/schema"
-import {  eq } from "drizzle-orm";
+import {  asc, eq } from "drizzle-orm";
+import { sql } from "drizzle-orm";
 
 
 export const usersService = async (limit?: number): Promise<UserSelect[] | null> => {
@@ -9,34 +10,123 @@ export const usersService = async (limit?: number): Promise<UserSelect[] | null>
         return await db.query.usersTable.findMany({
             limit: limit,
             with: {
-                address: true,
-                comment: true,
-                driver: true,
-                orders: true,
-                restaurant_owner: true
+                address: {
+                    columns:{
+                        user_id:false,
+                        city_id:false
+                    }
+                },
+                comment: {
+                    columns:{
+                        user_id:false,
+                        order_id:false
+                    }
+                },
+                driver: {
+                    columns:{
+                        user_id:false
+                    }
+                },
+                orders: {
+                    columns:{
+                        restaurantId:false,
+                        userId:false,
+                        driverId:false,
+                        deliveryAddressId:false
+                    }
+                
+                },
+                restaurant_owner: {
+                    columns:{
+                        restaurant_id:false,
+                        owner_id:false
+                    }
+                }
+            },
+            orderBy:[asc(usersTable.id)],
+            extras:{
+                loweredName:sql`lower(${usersTable.name})`.as("loweredName")
             }
         });
     }
     return await db.query.usersTable.findMany({
-    with: {
-        address: true,
-        comment: true,
-        driver: true,
-        orders: true,
-        restaurant_owner: true
+        with: {
+            address: {
+                columns:{
+                    user_id:false,
+                    city_id:false
+                }
+            },
+            comment: {
+                columns:{
+                    user_id:false,
+                    order_id:false
+                }
+            },
+            driver: {
+                columns:{
+                    user_id:false
+                }
+            },
+            orders: {
+                columns:{
+                    restaurantId:false,
+                    userId:false,
+                    driverId:false,
+                    deliveryAddressId:false
+                }
+            
+            },
+            restaurant_owner: {
+                columns:{
+                    restaurant_id:false,
+                    owner_id:false
+                }
+            }
+        },
+    orderBy:[asc(usersTable.id)],
+    extras:{
+        loweredName:sql`lower(${usersTable.name})`.as("loweredName")
     }
     });
 }
-export const getUserService = async (id: number) => {
+export const getUserService = async (id: number)=> {
     return await db.query.usersTable.findFirst({
         where: eq(usersTable.id, id),
-      columns: {
-        id: true,
-        name: true,
-        email: true,
-        address: true,
-        Comment: true
-      } 
+        with: {
+            address: {
+                columns:{
+                    user_id:false,
+                    city_id:false
+                }
+            },
+            comment: {
+                columns:{
+                    user_id:false,
+                    order_id:false
+                }
+            },
+            driver: {
+                columns:{
+                    user_id:false
+                }
+            },
+            orders: {
+                columns:{
+                    restaurantId:false,
+                    userId:false,
+                    driverId:false,
+                    deliveryAddressId:false
+                }
+            
+            },
+            restaurant_owner: {
+                columns:{
+                    restaurant_id:false,
+                    owner_id:false
+                }
+            }
+        },
     })
 }
 

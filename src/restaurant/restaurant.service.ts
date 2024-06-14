@@ -1,7 +1,7 @@
 import db from "../drizzle/db"
 import { restaurantTable } from "../drizzle/schema"
 import { restInsert,restSelect} from "../drizzle/schema"
-import { eq } from "drizzle-orm";
+import { asc,eq } from "drizzle-orm";
 
 
 export const restService = async (limit?: number): Promise<restSelect[] | null> => {
@@ -9,26 +9,96 @@ export const restService = async (limit?: number): Promise<restSelect[] | null> 
         return await db.query.restaurantTable.findMany({
             limit: limit,
             with: { 
-              menu_item: true,
-              orders: true,
-              restaurant_owner: true,
-              city: true
-            }
+              menu_item: {
+                columns:{
+                  restaurant_id:false,
+                  category_id:false
+                }
+              },
+              orders: {
+                columns:{
+                  userId:false,
+                  restaurantId:false,
+                  deliveryAddressId:false,  
+                driverId:false
+                }
+              },
+              restaurant_owner: {
+                columns:{
+                  restaurant_id:false,
+                  owner_id:false
+                }
+              },
+              city: {
+                columns:{
+                  state_id:false
+                }
+              }
+            },
+            orderBy: [asc(restaurantTable.id)]
         });
     }
     return await db.query.restaurantTable.findMany({
         with: { 
-            menu_item: true,
-            orders: true,
-            restaurant_owner: true,
-            city: true
+            menu_item: {
+              columns:{
+                restaurant_id:false,
+                category_id:false
+              }
+            },
+            orders: {
+              columns:{
+                userId:false,
+                restaurantId:false,
+                deliveryAddressId:false,  
+              driverId:false
+              }
+            },
+            restaurant_owner: {
+              columns:{
+                restaurant_id:false,
+                owner_id:false
+              }
+            },
+            city: {
+              columns:{
+                state_id:false
+              }
+            }
           }
     });
 }
 
 export const getrestService = async (id: number): Promise<restInsert | undefined> => {
     return await db.query.restaurantTable.findFirst({
-        where: eq(restaurantTable.id, id)
+        where: eq(restaurantTable.id, id),
+        with: { 
+            menu_item: {
+              columns:{
+                restaurant_id:false,
+                category_id:false
+              }
+            },
+            orders: {
+              columns:{
+                userId:false,
+                restaurantId:false,
+                deliveryAddressId:false,  
+              driverId:false
+              }
+            },
+            restaurant_owner: {
+              columns:{
+                restaurant_id:false,
+                owner_id:false
+              }
+            },
+            city: {
+              columns:{
+                state_id:false
+              }
+            }
+          }
     })
 }
 

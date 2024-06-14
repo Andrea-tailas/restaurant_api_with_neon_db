@@ -9,15 +9,41 @@ export const ordermenuService = async (limit?: number): Promise<omiSelect[] | nu
         return await db.query.ordermenuitemTable.findMany({
             limit: limit,
             with: {
-                order: true,
-                menu_item: true
+                order: {
+                    columns:{
+                        restaurantId:false,
+                        userId:false,
+                        driverId:false,
+                        deliveryAddressId:false
+                    }
+                },
+                menu_item: {
+                    columns:{
+                        restaurant_id:false,
+                        category_id:false
+                    
+                    }
+                }
             }
         });
     }
     return await db.query.ordermenuitemTable.findMany({
         with: {
-            order: true,
-            menu_item: true
+            order: {
+                columns:{
+                    restaurantId:false,
+                    userId:false,
+                    driverId:false,
+                    deliveryAddressId:false
+                }
+            },
+            menu_item: {
+                columns:{
+                    restaurant_id:false,
+                    category_id:false
+                
+                }
+            }
         }
     });
 }
@@ -29,7 +55,24 @@ export const createservice = async (item: omiInsert) => {
 
 export const getordermenu = async (id: number): Promise<omiInsert | undefined> => {
     return await db.query.ordermenuitemTable.findFirst({
-        where: eq(ordermenuitemTable.id, id)
+        where: eq(ordermenuitemTable.id, id),
+        with: {
+            order: {
+                columns:{
+                    restaurantId:false,
+                    userId:false,
+                    driverId:false,
+                    deliveryAddressId:false
+                }
+            },
+            menu_item: {
+                columns:{
+                    restaurant_id:false,
+                    category_id:false
+                
+                }
+            }
+        }
     })
 }
 

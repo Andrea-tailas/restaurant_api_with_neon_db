@@ -1,7 +1,7 @@
 import db from "../drizzle/db"
 import { restaurantownerTable } from "../drizzle/schema"
 import { restownerInsert,restownerSelect} from "../drizzle/schema"
-import { eq } from "drizzle-orm";
+import {asc, eq } from "drizzle-orm";
 
 
 export const restownerService = async (limit?: number): Promise<restownerSelect[] | null> => {
@@ -9,22 +9,40 @@ export const restownerService = async (limit?: number): Promise<restownerSelect[
         return await db.query.restaurantownerTable.findMany({
             limit: limit,
             with: { 
-                restaurant: true,
+                restaurant: {
+                    columns:{
+                        city_id:false
+                    }
+                },
                 user: true
-            }
+            },
+            orderBy: [asc(restaurantownerTable.id)]
         });
     }
     return await db.query.restaurantownerTable.findMany({
         with: { 
-            restaurant: true,
+            restaurant: {
+                columns:{
+                    city_id:false
+                }
+            },
             user: true
-        }
+        },
+        orderBy: [asc(restaurantownerTable.id)]
     });
 }
 
 export const getrestownerService = async (id: number): Promise<restownerInsert | undefined> => {
     return await db.query.restaurantownerTable.findFirst({
-        where: eq(restaurantownerTable.id, id)
+        where: eq(restaurantownerTable.id, id),
+        with: { 
+            restaurant: {
+                columns:{
+                    city_id:false
+                }
+            },
+            user: true
+        },
     })
 }
 

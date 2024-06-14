@@ -8,14 +8,24 @@ export const statesServiceLister = async (limit?: number): Promise<stateSelect[]
         return await db.query.stateTable.findMany({
             limit: limit,
             with: {
-                city: true
-            }
+                city: {
+                    columns:{
+                        state_id:false
+                    }
+                }
+            },
+            orderBy: [stateTable.id]
         });
     }
     return await db.query.stateTable.findMany({
         with: {
-            city: true
-        }
+            city: {
+                columns:{
+                    state_id:false
+                }
+            }
+        },
+        orderBy: [stateTable.id]
     });
 }
 
@@ -42,6 +52,13 @@ export const stateTableDelete= async (id: number) => {
 //get a state by id
 export const stateTableGetid= async (id: number): Promise<stateInsert | undefined> => {
     return await db.query.stateTable.findFirst({
-        where: eq(stateTable.id, id)
+        where: eq(stateTable.id, id),
+        with: {
+            city: {
+                columns:{
+                    state_id:false
+                }
+            }
+        }
     })
 }

@@ -34,5 +34,5 @@ export const bothMiddleware = async (c: Context, next: Next) => {
 export const adminRoleAuth = async (c: Context, next: Next) => await authMiddleware(c, next, "admin")
 export const userRoleAuth = async (c: Context, next: Next) => await authMiddleware(c, next, "user")
 export const bothRoleAuth = async (c: Context, next: Next) => await bothMiddleware(c, next)
-// export const restaurantOwnerRoleAuth = async (c: Context, next: Next) => await authMiddleware(c, next, "restaurant-owner")
-// export const driverRoleAuth = async (c: Context, next: Next) => await authMiddleware(c, next, "driver")
+export const restaurantOwnerRoleAuth = async (c: Context, next: Next) => await authMiddleware(c, next, "restaurant-owner")
+export const driverRoleAuth = async (c: Context, next: Next) => await authMiddleware(c, next, "driver")

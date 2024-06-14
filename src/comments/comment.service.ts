@@ -8,14 +8,28 @@ export const commentsService = async (limit?: number): Promise<commentSelect[] |
         return await db.query.commentsTable.findMany({
             limit: limit,
             with: {
-                order: true,
+                order: {
+                    columns:{
+                        restaurantId:false,
+                        userId:false,
+                        driverId:false,
+                        deliveryAddressId:false
+                    }
+                },
                 user: true
             }
         });
     }
     return await db.query.commentsTable.findMany({
         with: {
-            order: true,
+            order: {
+                columns:{
+                    restaurantId:false,
+                    userId:false,
+                    driverId:false,
+                    deliveryAddressId:false
+                }
+            },
             user: true
         }
     });
@@ -23,7 +37,18 @@ export const commentsService = async (limit?: number): Promise<commentSelect[] |
 
 export const getcommentService = async (id: number): Promise<commentInsert | undefined> => {
     return await db.query.commentsTable.findFirst({
-        where: eq(commentsTable.id, id)
+        where: eq(commentsTable.id, id),
+        with: {
+            order: {
+                columns:{
+                    restaurantId:false,
+                    userId:false,
+                    driverId:false,
+                    deliveryAddressId:false
+                }
+            },
+            user: true
+        }
     })
 }
 

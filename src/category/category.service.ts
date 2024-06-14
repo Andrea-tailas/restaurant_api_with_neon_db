@@ -1,6 +1,6 @@
 import db from "../drizzle/db"
 import { categoryInsert,categorySelect } from "../drizzle/schema"
-import { eq } from "drizzle-orm";
+import {asc, eq } from "drizzle-orm";
 import { category } from "../drizzle/schema";
 
 
@@ -9,14 +9,24 @@ export const categoriesLister = async (limit?: number): Promise<categorySelect[]
         return await db.query.category.findMany({
             limit: limit,
             with: {
-                menu_item: true
-            }
+                menu_item: {
+                    columns:{
+                       restaurant_id:false,
+                        category_id:false,
+                    }
+                }
+            },orderBy:[asc(category.id)]
         });
     }
     return await db.query.category.findMany({
         with: {
-            menu_item: true
-        }
+            menu_item: {
+                columns:{
+                   restaurant_id:false,
+                    category_id:false,
+                }
+            }
+        },orderBy:[asc(category.id)]
     });
 }
 
@@ -43,6 +53,14 @@ export const categoryDelete= async (id: number) => {
 //get a state by id
 export const categoryGetid= async (id: number): Promise<categoryInsert | undefined> => {
     return await db.query.category.findFirst({
-        where: eq(category.id, id)
+        where: eq(category.id, id),
+        with:{
+            menu_item: {
+                columns:{
+                   restaurant_id:false,
+                    category_id:false,
+                }
+            }
+        }
     })
 }

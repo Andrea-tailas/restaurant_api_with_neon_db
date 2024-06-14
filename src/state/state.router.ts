@@ -9,14 +9,14 @@ export const stateRouter = new Hono();
 //get all state      
 stateRouter.get("/states",adminRoleAuth, listState);
 //get a single state    
-stateRouter.get("/state/:id",getStateid )
+stateRouter.get("/state/:id",adminRoleAuth,getStateid )
 // create a state 
 stateRouter.post("/state",zValidator('json',stateValidator,(result,c)=>{
     if (!result.success){
         return c.json(result.error,400)
     }
-}),createState)
+}),adminRoleAuth,createState)
 //update a state
-stateRouter.put("/state/:id", updateState)
+stateRouter.put("/state/:id", adminRoleAuth,updateState)
 //remove a state
-stateRouter.delete("/state/:id", deleteState)
+stateRouter.delete("/state/:id",adminRoleAuth, deleteState)

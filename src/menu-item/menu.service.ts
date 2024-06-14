@@ -10,24 +10,56 @@ export const menuService = async (limit?: number): Promise<mitemSelect[] | null>
         return await db.query.menuitemTable.findMany({
             limit: limit,
             with: {
-                restaurant: true,
+                restaurant: {
+                    columns: {
+                        city_id: false
+                    }
+                },
                 category: true,
-                order_menu_item: true
+                order_menu_item: {
+                    columns:{
+                        order_id:false,
+                        menu_item_id:false
+                    }
+                }
             }
         });
     }
     return await db.query.menuitemTable.findMany({
         with: {
-            restaurant: true,
+            restaurant: {
+                columns: {
+                    city_id: false
+                }
+            },
             category: true,
-            order_menu_item: true
+            order_menu_item: {
+                columns:{
+                    order_id:false,
+                    menu_item_id:false
+                }
+            }
         }
     });
 }
 
 export const getmenuService = async (id: number): Promise<mitemInsert | undefined> => {
     return await db.query.menuitemTable.findFirst({
-        where: eq(menuitemTable.id, id)
+        where: eq(menuitemTable.id, id),
+        with: {
+            restaurant: {
+                columns: {
+                    city_id: false
+                }
+            },
+            category: true,
+            order_menu_item: {
+                columns:{
+                    order_id:false,
+                    menu_item_id:false
+                }
+            }
+        }
     })
 }
 

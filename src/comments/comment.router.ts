@@ -3,14 +3,14 @@ import { listcomments, getcomment, createcomment, updatecomment, deletecomment }
 export const commentRouter = new Hono();
 import { zValidator } from "@hono/zod-validator";   
 import { commentValidator } from "../validators";
-import { adminRoleAuth } from "../middleware/bearAuth";
+import { adminRoleAuth,bothRoleAuth } from "../middleware/bearAuth";
 
 commentRouter.get("/comments",adminRoleAuth, listcomments);
-commentRouter.get("/comment/:id", getcomment)
+commentRouter.get("/comment/:id",bothRoleAuth, getcomment)
 commentRouter.post("/comment", zValidator('json',commentValidator,(result,c)=>{
     if (!result.success){
         return c.json(result.error,400)
     }
 }),createcomment)
-commentRouter.put("/comment/:id", updatecomment)
-commentRouter.delete("/comment/:id", deletecomment)
+commentRouter.put("/comment/:id", bothRoleAuth,updatecomment)
+commentRouter.delete("/comment/:id", bothRoleAuth,deletecomment)

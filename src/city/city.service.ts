@@ -9,16 +9,34 @@ export const getCities= async (limit?: number): Promise<citySelect[] | null> => 
             limit: limit,
             with: {
                 state: true,
-                address: true,
-                restaurant: true
+                address: {
+                    columns:{
+                        user_id:false,
+                        city_id:false
+                    }
+                },
+                restaurant:{
+                    columns:{
+                       city_id:false
+                    }
+                }
             }
         });
     }
     return await db.query.cityTable.findMany({
         with: {
             state: true,
-            address: true,
-            restaurant: true
+            address: {
+                columns:{
+                    user_id:false,
+                    city_id:false
+                }
+            },
+            restaurant:{
+                columns:{
+                   city_id:false
+                }
+            }
         }
     });
 }
@@ -33,7 +51,21 @@ export const cityTableCreate=async (cty: cityInsert) => {
 //get a city by id
 export const cityTableGetid= async (id: number): Promise<cityInsert | undefined> => {
     return await db.query.cityTable.findFirst({
-        where: eq(cityTable.id, id)
+        where: eq(cityTable.id, id),
+        with: {
+            state: true,
+            address: {
+                columns:{
+                    user_id:false,
+                    city_id:false
+                }
+            },
+            restaurant:{
+                columns:{
+                   city_id:false
+                }
+            }
+        }
     })
 }
 

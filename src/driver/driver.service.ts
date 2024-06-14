@@ -10,14 +10,28 @@ export const driversLister = async (limit?: number): Promise<driverSelect[] | nu
             limit: limit,
             with: {
                 user: true,
-                orders: true
+                orders: {
+                    columns:{
+                        userId:false,
+                        driverId:false,
+                        deliveryAddressId:false,
+                        restaurantId:false
+                    }
+                }
             }
         });
     }
     return await db.query.driversTable.findMany({
         with: {
             user: true,
-            orders: true
+            orders: {
+                columns:{
+                    userId:false,
+                    driverId:false,
+                    deliveryAddressId:false,
+                    restaurantId:false
+                }
+            }
         }
     });
 }
@@ -45,6 +59,17 @@ export const driverTableDelete= async (id: number) => {
 //get a state by id
 export const driverTableGetid= async (id: number): Promise<driverInsert | undefined> => {
     return await db.query.driversTable.findFirst({
-        where: eq(driversTable.id, id)
+        where: eq(driversTable.id, id),
+        with: {
+            user: true,
+            orders: {
+                columns:{
+                    userId:false,
+                    driverId:false,
+                    deliveryAddressId:false,
+                    restaurantId:false
+                }
+            }
+        }
     })
 }

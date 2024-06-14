@@ -31,7 +31,7 @@ export const loginUser = async (c: Context) => {
             const payload={
                 sub:foundUser?.username,
                 role:foundUser?.role,
-                exp:Math.floor(Date.now()/1000)+ (60*60)
+                exp:Math.floor(Date.now()/1000)+ (60*36000000)
             }
             const secret=process.env.JWT_SECRET as string;
             const token=await sign(payload,secret);

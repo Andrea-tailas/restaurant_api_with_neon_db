@@ -10,14 +10,28 @@ export const orderstatLister = async (limit?: number): Promise<orderSSelect[] | 
         return await db.query.orderstatusTable.findMany({
             limit: limit,
             with: {
-                order: true,
+                order: {
+                    columns:{
+                        restaurantId:false,
+                        userId:false,
+                        driverId:false,
+                        deliveryAddressId:false
+                    }
+                },
                 status_catalog: true
             }
         });
     }
     return await db.query.orderstatusTable.findMany({
         with: {
-            order: true,
+            order: {
+                columns:{
+                    restaurantId:false,
+                    userId:false,
+                    driverId:false,
+                    deliveryAddressId:false
+                }
+            },
             status_catalog: true
         }
     });
@@ -46,6 +60,17 @@ export const orderstatTableDelete= async (id: number) => {
 //get a state by id
 export const orderstatTableGetid= async (id: number): Promise<orderSInsert | undefined> => {
     return await db.query.orderstatusTable.findFirst({
-        where: eq(orderstatusTable.id, id)
+        where: eq(orderstatusTable.id, id),
+        with: {
+            order: {
+                columns:{
+                    restaurantId:false,
+                    userId:false,
+                    driverId:false,
+                    deliveryAddressId:false
+                }
+            },
+            status_catalog: true
+        }
     })
 }

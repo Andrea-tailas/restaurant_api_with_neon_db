@@ -44,6 +44,9 @@ export const statcatTableDelete= async (id: number) => {
 //get a state by id
 export const statcatTableGetid= async (id: number): Promise<statcatInsert | undefined> => {
     return await db.query.statuscatalogTable.findFirst({
-        where: eq(statuscatalogTable.id, id)
+        where: eq(statuscatalogTable.id, id),
+        with: {
+            order_status: true
+        }
     })
 }

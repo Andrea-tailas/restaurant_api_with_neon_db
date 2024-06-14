@@ -9,14 +9,14 @@ export const catRouter = new Hono();
 //get all category      
 catRouter.get("/categories",adminRoleAuth, listCategory);
 //get a single category    
-catRouter.get("/category/:id",getCategoryid )
+catRouter.get("/category/:id",adminRoleAuth,getCategoryid )
 // create a category 
 catRouter.post("/category",zValidator('json',categoryValidator,(result,c)=>{
     if (!result.success){
         return c.json(result.error,400)
     }
-}),createCategory)
+}),adminRoleAuth,createCategory)
 //update a category
-catRouter.put("/category/:id", updateCategory)
+catRouter.put("/category/:id",adminRoleAuth, updateCategory)
 //remove a category
-catRouter.delete("/category/:id", deleteCategory)
+catRouter.delete("/category/:id",adminRoleAuth, deleteCategory)
