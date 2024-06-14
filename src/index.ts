@@ -17,6 +17,7 @@ import { menuRouter } from "./menu-item/menu.router";
 import { ordermenuRouter } from "./order-menu-item/orderm.router";
 import { authRouter } from "./auth/auth.router"
 import { html } from "hono/html"
+import { readFileSync } from "fs";
 const app = new Hono()
 
 
@@ -24,27 +25,18 @@ const app = new Hono()
 app.get('/', (c) => {
   return c.html(
     html`
-    <h1>Welcome to the API</h1>
-    <p>My name is Titus Waititu and this is my API</p>
-    <p>Use the following routes to interact with the API</p>
-    <ul>
-      <li><a href="/api/users">/users</a></li>
-      <li><a href="/state">/state</a></li>
-      <li><a href="/order-status">/order-status</a></li>
-      <li><a href="/driver">/driver</a></li>
-      <li><a href="/category">/category</a></li>
-      <li><a href="/address">/address</a></li>
-      <li><a href="/comment">/comment</a></li>
-      <li><a href="/restaurant">/restaurant</a></li>
-      <li><a href="/restaurant-owner">/restaurant-owner</a></li>
-      <li><a href="/order">/order</a></li>
-      <li><a href="/menu-item">/menu-item</a></li>
-      <li><a href="/order-menu-item">/order-menu-item</a></li>
-      </ul>
+    
     `
   )
 })
-
+app.get('/',async (c) => {
+  try{
+    let html=readFileSync('./index.html','utf-8')
+    return c.html(html)
+  }catch(error:any){
+    return c.json({error:error.message,status:500})
+  }
+})
 
 //custom route
 app.route('/api', userRouter)
