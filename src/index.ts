@@ -31,7 +31,7 @@ app.get('/', (c) => {
 })
 app.get('/',async (c) => {
   try{
-    let html=readFileSync('./index.html','utf-8')
+    let html=readFileSync('../index.html','utf-8')
     return c.html(html)
   }catch(error:any){
     return c.json({error:error.message,status:500})
