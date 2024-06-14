@@ -28,7 +28,6 @@ app.get('/', (c) => {
     <p>My name is Titus Waititu and this is my API</p>
     <p>Use the following routes to interact with the API</p>
     <ul>
-      <li><a href="/api">/api</a></li>
       <li><a href="/api/users">/users</a></li>
       <li><a href="/state">/state</a></li>
       <li><a href="/order-status">/order-status</a></li>
