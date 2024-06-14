@@ -12,26 +12,39 @@
             background-color: #f4f4f4;
             color: #333;
         }
-        h1 {
-            text-align: center;
-            margin-top: 50px;
-            color: #fff;
-            background-color: #333;
-            padding:20px;
-            border:2px solid black;
+      .profile {
+        width: 50%;
+        margin: 0 auto;
+        background: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin-top: 50px;
+      }
+        .profile h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 10px;
         }
-        p {
-            text-align: center;
-            margin-top: 20px;
-            font-size: 15pt;
+        .profile p {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        .profile p span {
+            font-weight: bold;
         }
     
     </style>
 </head>
 <body>
-    <h1>Welcome to the API</h1>
-<p>My name is Titus Waititu and this is my API</p>
+ <div class="profile">
+    <h1>Restaurant Api</h1>
+    <p><span>Name:</span>Titus Waititu</p>
+    <p><span>Project:</span>Restaurant api</p>
+    <p><span>Project Description:</span> This is a simple api that allows users to access data from a restaurant database</p>
 
+ </div>
 </body>
 </html>
 
