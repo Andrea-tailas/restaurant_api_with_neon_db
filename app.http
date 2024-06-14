@@ -1,6 +1,6 @@
 //USER TABLE **************** 1
-GET http://localhost:8000/api/users
-Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJKb25lcyIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTcxODM2OTYxOH0.oyK6rZXPzMxx-ueSGLJDDZfMEfPA9CH6CaPWz3Ti3nw
+GET http://hotel-restaurant.azurewebsites.net/api/users
+Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJKb25lcyIsInJvbGUiOiJhZG1pbiIsImV4cCI6Mzg3ODM3NDg5MX0.JUWsJ2AubP3x87ckw6EvJzTvqIwx0JZ_abcTbPfyWfA
 ###
 GET http://localhost:8000/api/user/3
 Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJKb25lcyIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTcxODI4OTI1NH0.iB7MCfK7k_7SMMvlQ0sOljcrQiPzdL51UDHBXO-QeSY
