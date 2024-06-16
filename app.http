@@ -7,24 +7,6 @@ Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJKb25lcyIsInJvbGUiO
 
 GET http://localhost:8000/api/user?limit=2
 
-###
-
-POST http://localhost:8000/api/user
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJKb25lcyIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTcxODI4OTI1NH0.iB7MCfK7k_7SMMvlQ0sOljcrQiPzdL51UDHBXO-QeSY
-Content-Type: application/json
-
-  {
-    "id": 10,
-    "name": "jovial",
-    "contact_phone": "9560667",
-    "phone_verified": true,
-    "email": "glory@gmail.com",
-    "email_verified": true,
-    "confirmation_code": "2996075",
-    "password": "4907605",
-    "address": "kutus",
-    "Comment": "I am a senior developer"
-  }
   
 ###
 
@@ -42,52 +24,25 @@ POST http://localhost:8000/auth/register
 content-Type:application/json
   
   {
-    "id":"1",
-    "userId":5,
-    "username": "Jones",
-    "password": "pass123",
-    "role": "admin"
-  } 
-###
-POST http://localhost:8000/auth/register
-content-Type:application/json
-  
-  {
-    "id":"2",
-    "userId":2,
-    "username": "Kim",
-    "password": "pass",
-    "role": "user"
-  } 
-###
-POST http://localhost:8000/auth/register
-content-Type:application/json
-  
-  {
-    "id":"3",
-    "userId":3,
-    "username": "Tyler",
-    "password": "pass123",
-    "role": "restaurant-owner"
-  } 
-###
-POST http://localhost:8000/auth/register
-content-Type:application/json
-  
-  {
-    "id":"4",
-    "userId":4,
-    "username": "mensa",
-    "password": "1234",
-    "role": "driver"
-  } 
+    "name": "Titus",
+    "contact_phone": "+254714663322",
+    "phone_verified": true,
+    "email": "andreastailas96@gmail.com",
+    "username":"andreas",
+    "email_verified": true,
+    "confirmation_code": "96075",
+    "password": "andreas",
+    "role":"user",
+    "address": "Kagio",
+    "Comment": "I am a senior developer"
+  }
 ###
 POST http://localhost:8000/auth/login
 Content-Type:application/json
   
   {
-    "username": "Jones",
-    "password": "pass123"
+    "username": "andreas",
+    "password": "andreas"
   }
 ###
 

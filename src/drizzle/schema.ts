@@ -1,7 +1,8 @@
 
 import { relations } from "drizzle-orm";
 import { pgTable, serial, text, varchar, integer, decimal, boolean,timestamp } from "drizzle-orm/pg-core";
-
+import { pgEnum } from "drizzle-orm/pg-core";
+export const roleEnum = pgEnum("role", ["admin", "user","driver","restaurant-owner"])
 //users table
 export const usersTable = pgTable('users', {
     id: serial('id').primaryKey(),
@@ -10,6 +11,9 @@ export const usersTable = pgTable('users', {
     phone_verified: boolean("phone_verified").notNull(),
     email: varchar('email', { length: 255 }).notNull(),
     email_verified: boolean('email_verified').notNull(),
+    password: varchar("password", { length: 100 }),
+    username: varchar("username", { length: 100 }),
+    role: roleEnum("role").default("user"),
     confirmation_code: text('comfirmation_code'),
     address: varchar('address', { length: 255 }).notNull(),
     Comment: text('comment').notNull(),
@@ -163,19 +167,6 @@ export const statuscatalogTable = pgTable('status_catalog', {
     name: varchar('name', { length: 255 }).notNull(),
 })
 
-
-export type addressTable2 = {
-    id: number,
-    street_address_1: string,
-    street_address_2: string,
-    zip_code: string,
-    delivery_instructions: string,
-    // user_id: integer('user_id').notNull().references(() => usersTable.id, { onDelete: 'cascade' }),
-    // city_id: integer('city_id').notNull().references(() => cityTable.id, { onDelete: 'cascade' }),
-    created_at: Date,
-    updated_at:Date,
-
-}
 
 //RELATIONS
 //usertable relations
@@ -336,8 +327,7 @@ export const orderstatusTableRelation=relations(orderstatusTable,({one,many})=>(
 export const statuscatalogTableRelation=relations(statuscatalogTable,({many})=>({
     order_status:many(orderstatusTable),
 }))
-import { pgEnum } from "drizzle-orm/pg-core";
-export const roleEnum = pgEnum("role", ["admin", "user","driver","restaurant-owner"])
+
 
 export const AuthOnUsersTable = pgTable("auth_on_users", {
     id: serial("id").primaryKey(),

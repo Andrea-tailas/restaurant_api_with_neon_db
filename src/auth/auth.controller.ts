@@ -35,9 +35,9 @@ export const loginUser = async (c: Context) => {
             }
             const secret=process.env.JWT_SECRET as string;
             const token=await sign(payload,secret);
-            let user=foundUser?.user;
+            let username=foundUser?.username;
             let role=foundUser?.role;
-            return c.json({token,user:{role,...user}},200)
+            return c.json({token,username,role},200)
         }
        
     } catch (error: any) {

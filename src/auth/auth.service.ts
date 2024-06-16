@@ -1,30 +1,21 @@
-import { AuthOnUsersTable,TIAuthOnUser,TSAuthOnUser } from "../drizzle/schema";
+import {usersTable,UserInsert,UserSelect } from "../drizzle/schema";
 import db from "../drizzle/db";
 import {sql} from "drizzle-orm"
+import { SendMail } from "../NodeMail/mail";
 
-export const createAuthUserService = async (user: TIAuthOnUser): Promise<string | null> => {
-    await db.insert(AuthOnUsersTable).values(user)
+export const createAuthUserService = async (user: UserInsert):Promise<string | null> => {
+    await db.insert(usersTable).values(user)
     return "User created successfully";
 }
 
 
-export const userLoginService = async (user: TSAuthOnUser) => {
+export const userLoginService = async (user: UserInsert) => {
     const { username } = user;
-    return await db.query.AuthOnUsersTable.findFirst({
+    return await db.query.usersTable.findFirst({
         columns: {
             username: true,
             role: true,
             password: true
-        }, where: sql`${AuthOnUsersTable.username} = ${username} `,
-        with: {
-            user: {
-                columns: {
-                    name: true,
-                    contact_phone: true,
-                    address: true,
-                    id: true
-                }
-            }
-        }
+        }, where: sql`${usersTable.username} = ${username} `,
     })
 }
