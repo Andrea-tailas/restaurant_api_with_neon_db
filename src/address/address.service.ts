@@ -1,4 +1,4 @@
-import { addressSelect, addressInsert, addressTable2 } from "../drizzle/schema"
+import { addressSelect, addressInsert } from "../drizzle/schema"
 import db from "../drizzle/db"
 import { asc, eq } from "drizzle-orm";
 import { addressTable } from "../drizzle/schema";
